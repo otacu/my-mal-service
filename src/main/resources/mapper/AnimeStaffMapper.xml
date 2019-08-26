@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egoist.mal.dao.AnimeStaffMapper">
+  <resultMap id="BaseResultMap" type="com.egoist.mal.pojo.AnimeStaff">
+    <id column="idx" jdbcType="BIGINT" property="idx" />
+    <result column="anime_id" jdbcType="INTEGER" property="animeId" />
+    <result column="anime_en_name" jdbcType="VARCHAR" property="animeEnName" />
+    <result column="anime_jp_name" jdbcType="VARCHAR" property="animeJpName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="roles" jdbcType="VARCHAR" property="roles" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idx, anime_id, anime_en_name, anime_jp_name, name, roles
+  </sql>
+  <select id="selectByExample" parameterType="com.egoist.mal.pojo.AnimeStaffExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_myanimelist_anime_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_myanimelist_anime_staff
+    where idx = #{idx,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_myanimelist_anime_staff
+    where idx = #{idx,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.egoist.mal.pojo.AnimeStaffExample">
+    delete from tb_myanimelist_anime_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.egoist.mal.pojo.AnimeStaff">
+    insert into tb_myanimelist_anime_staff (idx, anime_id, anime_en_name, 
+      anime_jp_name, name, roles
+      )
+    values (#{idx,jdbcType=BIGINT}, #{animeId,jdbcType=INTEGER}, #{animeEnName,jdbcType=VARCHAR}, 
+      #{animeJpName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{roles,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.egoist.mal.pojo.AnimeStaff">
+    insert into tb_myanimelist_anime_staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        idx,
+      </if>
+      <if test="animeId != null">
+        anime_id,
+      </if>
+      <if test="animeEnName != null">
+        anime_en_name,
+      </if>
+      <if test="animeJpName != null">
+        anime_jp_name,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="roles != null">
+        roles,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        #{idx,jdbcType=BIGINT},
+      </if>
+      <if test="animeId != null">
+        #{animeId,jdbcType=INTEGER},
+      </if>
+      <if test="animeEnName != null">
+        #{animeEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="animeJpName != null">
+        #{animeJpName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null">
+        #{roles,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.egoist.mal.pojo.AnimeStaffExample" resultType="java.lang.Long">
+    select count(*) from tb_myanimelist_anime_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_myanimelist_anime_staff
+    <set>
+      <if test="record.idx != null">
+        idx = #{record.idx,jdbcType=BIGINT},
+      </if>
+      <if test="record.animeId != null">
+        anime_id = #{record.animeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.animeEnName != null">
+        anime_en_name = #{record.animeEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.animeJpName != null">
+        anime_jp_name = #{record.animeJpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roles != null">
+        roles = #{record.roles,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_myanimelist_anime_staff
+    set idx = #{record.idx,jdbcType=BIGINT},
+      anime_id = #{record.animeId,jdbcType=INTEGER},
+      anime_en_name = #{record.animeEnName,jdbcType=VARCHAR},
+      anime_jp_name = #{record.animeJpName,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      roles = #{record.roles,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.egoist.mal.pojo.AnimeStaff">
+    update tb_myanimelist_anime_staff
+    <set>
+      <if test="animeId != null">
+        anime_id = #{animeId,jdbcType=INTEGER},
+      </if>
+      <if test="animeEnName != null">
+        anime_en_name = #{animeEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="animeJpName != null">
+        anime_jp_name = #{animeJpName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null">
+        roles = #{roles,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idx = #{idx,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.egoist.mal.pojo.AnimeStaff">
+    update tb_myanimelist_anime_staff
+    set anime_id = #{animeId,jdbcType=INTEGER},
+      anime_en_name = #{animeEnName,jdbcType=VARCHAR},
+      anime_jp_name = #{animeJpName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      roles = #{roles,jdbcType=VARCHAR}
+    where idx = #{idx,jdbcType=BIGINT}
+  </update>
+</mapper>

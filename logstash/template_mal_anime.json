@@ -1,0 +1,43 @@
+{
+  "template": "index_mal_anime",
+  "mappings": {
+    "doc": {
+      "properties": {
+        "animeId": {
+          "type": "integer"
+        },
+        "enName": {
+          "type": "text"
+        },
+        "jpName": {
+          "type": "text",
+          "analyzer":"kuromoji",
+          "search_analyzer":"kuromoji"
+        },
+        "pic": {
+          "type": "keyword",
+          "index": false
+        },
+        "animeType": {
+          "type": "keyword"
+        },
+        "episodes": {
+          "type": "integer",
+          "index": false
+        },
+        "premiered": {
+          "type": "text"
+        },
+        "producers": {
+          "type": "text"
+        },
+        "studios": {
+          "type": "text"
+        },
+        "source": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
